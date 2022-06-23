@@ -81,21 +81,66 @@ Clase 03 (26 en youtube): Vistas, se puede agregar contenido dinamico.
 
 
 
-Clase 04 - Formularios de contactos
+Clase 04 - Formularios de contactos/Validación. Clase 27 youtube descargada. La más importante/interesante.
 
 . Agregar a routers la ruta de contacto. 1 para mostrar formulario y otra para procesar formulario.
-
 . crear carpeta routes e incorporar y dividir las rutas en archivos.
-
-
-.creacion de ruta contacto (repasa brevemente los pasos para crear una ruta) (min 10)
+. creacion de ruta contacto (repasa brevemente los pasos para crear una ruta) (min 10)
 . crea vista de contacto.ejs (las vistas tienen que ser siempre .ejs)
-
 . En la creación de formulario yo tengo que avisarle a la app que pueda recibir esa información (min17)
-	. app.use(express.urlencoded({extended:false}));
+	. app.use(express.urlencoded({extended:false})); 
+    Esto va a habilitar que pueda recibir la informacion submiteada a traves de req.body.
+
+. Habilitar la ruta contacto pero POST:
+router.post('/contacto, (req,res) =>{
+    req.body;
+    res.send('Enviando...)
+})
+
 
 . Validación de información. (min 23)
 	. NPM i express-validator
+    // 1. crear reglas que tiene que cumplir nuestro formulario
+    // 2. Ver si cumplió esas reglas.
+
+// 
+. const {body, validationResult} =  require('express-validator'); (min 36 aprox)
+esto hay que ponerlo en la RUTA DE CONTACTO (contacto.js, NO contacto.ejs)
+
+Despues, como segundo parametro de la ruta.POST vamos a agregar un array con todas las condiciones que querramos que cumplan los datos.
+//      'nombre' en este caso es aquello que me envia el formulario que es lo que quiero validar.
+[body('nombre').exists(),isLength() ] (min 38)
+
+depues, tenemos que llamar a validationResult pasandole el parametro req para saber cuales son los errores que obtuvimos.(si es que hubo errores)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
