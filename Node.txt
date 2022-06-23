@@ -1,0 +1,118 @@
+Node.js
+
+Clase 01:
+
+. Requerir modulo http(ya viene incluido con node.js)
+. crear servidor
+. crear y escuchar puerto
+
+// CON LA APARICIÓN DEL MODULO EXPRESS EL REQUIRE DE HTTP DEJO DE USARSE, SE PUEDE USAR SIN PROBLEMAS PERO NO ES LO MÁS COMÚN.
+
+
+
+Clase 02:
+
+. NPM init para iniciar proyecto
+. NPM install EXPRESS
+    .require('express')
+    . instanciar ese express (la constante en la que requerimos expres) para ejecturlo.
+. crear puerto
+. app.listen(puerto, response)
+. NPM install nodemon (abrir con - nodemon.cmd "nombre archivo" -)
+. NPM install dotenv //AYUDA A CONFIGURAR VARIABLES DE ENTORNO.
+    .confirgurar llamando require('dotenv').config(); con esto + creando un archivo .env en la carpeta principal quedará listo. (min35)
+. app.get
+. app use
+. app.use con next(middleware que permite ir hacia la siguiente capa) (min 42)
+. app use(express.static(__dirname + '/public')). Llama todos los archivos estaticos que se encuentren dentro de esa carpeta, /public en este caso.  (min 46)
+. app.get + parametros dentro de la URL (min52)
+    app.get('/productos/:codigo', (req,res) => { res.send('producto:' + req.params.codigo)})
+
+. Routers (modulo para todas las rutas y separarlas de app.js para que sea mas ordenado) (min59)
+    1.Dentro de routers.js hay que llamar a express nuevamente con require.
+    2. Despues crear constante con el metodo router dentro de express. 
+    3. llamar" a app.get utilizar router.get.
+    4. module.exports = router;
+    5. requerir al modulo desde app.js ( app.use(require('./router')));
+    
+    i.e.
+        const express = require('express')
+        const router = express.Router();
+
+        ANTES:
+        app.get('/', (req,res) => {res.send('hola')})
+
+        AHORA:
+        router.get('/', (req,res) => {res.send('hola')})
+
+
+
+
+
+Clase 03 (26 en youtube): Vistas, se puede agregar contenido dinamico.
+
+. Modificar script desde package.jason para ejecutar lo necesario. (min8)
+    {"start" : "node app",
+    "dev" : "nodemon app"}
+    De esta manera, podemos ejecutar nodemon de la siguiente manera: "npm run dev" en vez de "nodemon.cmd  app".
+
+
+. Install EJS (motor de vistas) (min10)
+    . app.set('view engine'. 'ejs') Le decimos a node que utilice EJS para view engine. Esto hay que hacerlo en app.js o la "principal de la app",
+    . Lo que hace EJS es que con .render devuelve la renderización en vez de .send.
+    . en router donde tenemos las rutas en reemplazamos "send" por "render". Todas las views que queremos mostrar tendran que estar en la carpeta "views". (min 15)
+
+. Utilización de <% %> en html para incoporar javascript. (min 24)
+    . Esto tiene de particular es que la vista MUESTRA al usuario como si fuera contenido estatico, no dinamico.
+
+. Crear carpeta partials y poner los archivos ahí con la extension ".ejs". Los partials son partecitas que yo voy poniendo dentro de una VISTA.
+
+. Layouts. Envuelve a la vista, entonces la VISTA se va a encargar solo de contener lo que pertenece a esa vista.
+    . requiere instalacion: "npm i express-ejs-layouts".
+    . requiere instanciarlo y configurarlo (min 42)
+
+    PROCESO PARA ENTENDER COMO FUNCIONA LAYOUTS:
+    Desde la vista layouts hay que ingresar <% body %>. Esto Indicará a node que es la página base, y que según la vista que estemos solicitando (por ejemplo /contactos) renderiza en ese body lo que se encuentre en esa vista.
+    (video que ayudo a enteder este proceso https://www.youtube.com/watch?v=IaJqX-ba6y4&ab_channel=Inform%C3%A1ticaDP )
+
+. Contenido Dinamico. (min 1.05hs). 
+    . exporta de un modulo y lo requiere en la router.js para asignarlo en la vista que querramos
+
+
+
+
+Clase 04 - Formularios de contactos
+
+. Agregar a routers la ruta de contacto. 1 para mostrar formulario y otra para procesar formulario.
+
+. crear carpeta routes e incorporar y dividir las rutas en archivos.
+
+
+.creacion de ruta contacto (repasa brevemente los pasos para crear una ruta) (min 10)
+. crea vista de contacto.ejs (las vistas tienen que ser siempre .ejs)
+
+. En la creación de formulario yo tengo que avisarle a la app que pueda recibir esa información (min17)
+	. app.use(express.urlencoded({extended:false}));
+
+. Validación de información. (min 23)
+	. NPM i express-validator
+
+
+
+
+
+Notas:
+"./" es el directorio actual, el mismo es en el que se encuentra el archivo que esta requiriendo
+
+
+module.exports = {
+    //fueraDelaFuncion: dentroDeLaFuncion
+      find: find
+}
+
+Esto exportará la funcion find (lado derecho) con el nombre find (lado izquierdo). Como en este caso, cuando ambos lados tengan el mismo nombre se puede omitir el nombre derecho.
+
+
+
+%= imprime
+% procesa no imprime.
